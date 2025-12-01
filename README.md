@@ -279,19 +279,19 @@ mutation {
 ## 📸 Captures d'écran
 
 ### 1. Statistiques globales - Query `totalSolde`
-![Statistiques globales](screenshots/screenshot1.png)
+<img width="1484" height="958" alt="Screenshot 2025-12-01 193454" src="https://github.com/user-attachments/assets/fa89e658-d075-491d-b466-c21faa452427" />
 *Affichage du nombre total de comptes, somme et moyenne des soldes*
 
 ### 2. Récupération d'un compte par ID
-![Compte par ID](screenshots/screenshot2.png)
+<img width="1477" height="750" alt="Screenshot 2025-12-01 193502" src="https://github.com/user-attachments/assets/3f554144-b882-4dee-b5ba-b9a41da0ff87" />
 *Requête pour récupérer un compte spécifique avec son ID*
 
 ### 3. Liste de tous les comptes
-![Liste des comptes](screenshots/screenshot3.png)
+<img width="1438" height="759" alt="Screenshot 2025-12-01 193507" src="https://github.com/user-attachments/assets/ddfdeb9f-6720-4975-b98a-a229438abeff" />
 *Affichage de tous les comptes bancaires enregistrés*
 
 ### 4. Création d'un nouveau compte
-![Mutation saveCompte](screenshots/screenshot4.png)
+<img width="1550" height="731" alt="Screenshot 2025-12-01 193721" src="https://github.com/user-attachments/assets/cacc5795-e179-45b1-aeb5-dd8d895aed6b" />
 *Mutation pour créer un nouveau compte bancaire*
 
 ## 📁 Structure du projet
