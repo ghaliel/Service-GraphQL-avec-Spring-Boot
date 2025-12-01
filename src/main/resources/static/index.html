@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GraphQL Banque Service - Test Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            font-family: 'Courier New', monospace;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .example {
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .example:hover {
+            background-color: #c8e6c9;
+        }
+        .example h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <h1>🏦 GraphQL Banque Service - Interface de Test</h1>
+    
+    <div class="container">
+        <h2>Requête GraphQL</h2>
+        <textarea id="query" placeholder="Entrez votre requête GraphQL ici...">query {
+  allComptes {
+    id
+    solde
+    dateCreation
+    type
+  }
+}</textarea>
+        <button onclick="executeQuery()">Exécuter la requête</button>
+    </div>
+
+    <div class="container">
+        <h2>Réponse</h2>
+        <pre id="response">La réponse s'affichera ici...</pre>
+    </div>
+
+    <div class="container">
+        <h2>Exemples de requêtes</h2>
+        
+        <div class="example" onclick="loadExample(1)">
+            <h3>1. Récupérer tous les comptes</h3>
+            <code>query { allComptes { id solde dateCreation type } }</code>
+        </div>
+
+        <div class="example" onclick="loadExample(2)">
+            <h3>2. Récupérer un compte par ID</h3>
+            <code>query { compteById(id: 1) { id solde dateCreation type } }</code>
+        </div>
+
+        <div class="example" onclick="loadExample(3)">
+            <h3>3. Obtenir les statistiques</h3>
+            <code>query { totalSolde { count sum average } }</code>
+        </div>
+
+        <div class="example" onclick="loadExample(4)">
+            <h3>4. Créer un nouveau compte (Mutation)</h3>
+            <code>mutation { saveCompte(compte: { solde: 2500.0, dateCreation: "2024-12-01", type: EPARGNE }) { id solde type } }</code>
+        </div>
+    </div>
+
+    <script>
+        const examples = {
+            1: `query {
+  allComptes {
+    id
+    solde
+    dateCreation
+    type
+  }
+}`,
+            2: `query {
+  compteById(id: 1) {
+    id
+    solde
+    dateCreation
+    type
+  }
+}`,
+            3: `query {
+  totalSolde {
+    count
+    sum
+    average
+  }
+}`,
+            4: `mutation {
+  saveCompte(compte: {
+    solde: 2500.0,
+    dateCreation: "2024-12-01",
+    type: EPARGNE
+  }) {
+    id
+    solde
+    type
+  }
+}`
+        };
+
+        function loadExample(num) {
+            document.getElementById('query').value = examples[num];
+        }
+
+        async function executeQuery() {
+            const query = document.getElementById('query').value;
+            const responseElement = document.getElementById('response');
+            
+            responseElement.textContent = 'Exécution de la requête...';
+            
+            try {
+                const response = await fetch('/graphql', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ query })
+                });
+                
+                const data = await response.json();
+                responseElement.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                responseElement.textContent = 'Erreur: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
